@@ -80,16 +80,21 @@ function validateHHmm(hhmm) {
 }
 // show error
 function validatorShowErrorMessage(e, m) {
-  e.parent().find(".validation-error-message").remove();
+  e.parent().find(".rabbit-integrator-validation-error-message").remove();
   if (e.attr("data-error-info") != "hide") {
-    // e.parent().append('<div class="validation-error-message">' + m + "</div>");
+    e.parent().append(
+      '<div class="rabbit-integrator-validation-error-message">' + m + "</div>"
+    );
   }
 }
 // clear field error
 function validatorHideErrorMessage(field_ob) {
   if (field_ob.hasClass("form-validation-error")) {
     field_ob.removeClass("form-validation-error");
-    field_ob.parent().find(".validation-error-message").remove();
+    field_ob
+      .parent()
+      .find(".rabbit-integrator-validation-error-message")
+      .remove();
   }
 }
 function validatorHookFieldEvents() {
@@ -120,7 +125,9 @@ function validate(parent_element) {
     jQuery(parent_element + " .validate-field").removeClass(
       "form-validation-error"
     );
-    jQuery(parent_element + " .validation-error-message").remove();
+    jQuery(
+      parent_element + " .rabbit-integrator-validation-error-message"
+    ).remove();
     var field_type = "";
     var field_value = "";
     var field_validation_type = "";

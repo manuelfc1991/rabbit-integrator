@@ -39,6 +39,10 @@ class RabbitIn {
             if (isset($_GET['page'])) {
                 if(in_array($_GET['page'], array('rabbit-integrator-new-template')))
                 {
+                    wp_register_style('rabbit_tail_simple_color_picker_style', RI_PLUGIN_URL. 'assets/css/jquery.simple-color-picker.css');
+                    wp_enqueue_style('rabbit_tail_simple_color_picker_style');
+                    wp_register_script( 'rabbit_tail_simple_color_picker_script', RI_PLUGIN_URL. 'assets/js/jquery.simple-color-picker.js');
+                    wp_enqueue_script( 'rabbit_tail_simple_color_picker_script' );
                     wp_register_script( 'rabbit_tail_new_template_script', RI_PLUGIN_URL. 'assets/js/new-template.js');
                     wp_enqueue_script( 'rabbit_tail_new_template_script' );
                 }

@@ -33,29 +33,48 @@ jQuery(document).ready(function (e) {
     new_paypal_form_submit();
   });
 
-  jQuery("#price,#button-text,#button-text-size").on("keyup", function (e) {
-    jQuery(".rabbit-integrator-paypal-btn").removeClass(
-      "rabbit-integrator-paypal-btn-default"
-    );
-
+  jQuery(
+    "#price,#button-text,#button-text-size,#button-width,#button-height,#button-text-color,#button-color"
+  ).on("keyup", function (e) {
+    // jQuery(".rabbit-integrator-paypal-btn").removeClass(
+    //   "rabbit-integrator-paypal-btn-default"
+    // );
     var price = jQuery("#price").val();
     var button_txt = jQuery("#button-text").val();
     var button_txt_size = jQuery("#button-text-size").val();
     var button_width = jQuery("#button-width").val();
     var button_height = jQuery("#button-height").val();
     var button_color = jQuery("#button-text-color").val();
-    console.log(button_txt);
-
+    var button_bg_color = jQuery("#button-color").val();
     if (
       price !== "" ||
       button_txt !== "" ||
       button_txt_size !== "" ||
       button_width !== "" ||
       button_height !== "" ||
-      button_color !== ""
+      button_color !== "" ||
+      button_bg_color !== ""
     ) {
-      jQuery(".rabbit-integrator-paypal-btn").text(button_txt);
-      jQuery(".rabbit-integrator-paypal-btn").css("font-size", button_txt_size);
+      jQuery(".rabbit-integrator-paypal-btn span").text(button_txt);
+      jQuery(".rabbit-integrator-paypal-btn").css(
+        "font-size",
+        button_txt_size + "px"
+      );
+      jQuery(".rabbit-integrator-paypal-btn").css("width", button_width + "px");
+      jQuery(".rabbit-integrator-paypal-btn").css(
+        "height",
+        button_height + "px"
+      );
+      jQuery(".rabbit-integrator-paypal-btn").css("color", button_color);
+      jQuery(".rabbit-integrator-paypal-btn").css(
+        "background-color",
+        button_bg_color
+      );
     }
+  });
+  jQuery("input#button-text-color, input#button-color").simpleColorPicker({
+    onChangeColor: function (color) {
+      jQuery(this).keyup();
+    },
   });
 });

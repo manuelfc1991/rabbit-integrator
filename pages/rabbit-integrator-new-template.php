@@ -32,31 +32,31 @@
         </li>
         <li>
           <label for="price">Price</label>
-          <input type="text" class="validate-field" data-validation-mandatory="yes" data-validation-type="float" name="price" id="price" value="" >
+          <input type="text" class="validate-field" data-validation-mandatory="no" data-validation-type="float" name="price" id="price" value="" >
         </li>
         <li>
           <label for="button-text">Button Text</label>
-          <input type="text" class="validate-field" data-validation-mandatory="yes" data-validation-type="text" name="button_text" id="button-text" >
+          <input type="text" class="validate-field" data-validation-mandatory="no" data-validation-type="text" name="button_text" id="button-text" >
         </li>
         <li>
           <label for="button-text-size">Button Text Size</label>
-          <input type="text" class="validate-field" data-validation-mandatory="yes" data-validation-type="text" name="button_text_size" id="button-text-size" value="" >
+          <input type="text" class="validate-field" data-validation-mandatory="no" data-validation-type="int" name="button_text_size" id="button-text-size" value="" >
         </li>
         <li>
           <label for="button-width">Button Width</label>
-          <input type="text" class="validate-field" data-validation-mandatory="yes" data-validation-type="text" name="button_width" id="button-width" value="" >
+          <input type="text" class="validate-field" data-validation-mandatory="no" data-validation-type="int" name="button_width" id="button-width" value="" >
         </li>
         <li>
           <label for="button-height">Button Height</label>
-          <input type="text" class="validate-field" data-validation-mandatory="yes" data-validation-type="text" name="button_height" id="button-height" value="" >
+          <input type="text" class="validate-field" data-validation-mandatory="no" data-validation-type="int" name="button_height" id="button-height" value="" >
         </li>
         <li>
           <label for="button-text-color">Button Text Color</label>
-          <input type="text" class="validate-field" data-validation-mandatory="yes" data-validation-type="text" name="button_text_color" id="button-text-color" value="" >
+          <input type="text" class="validate-field" data-validation-mandatory="no" data-validation-type="text" name="button_text_color" id="button-text-color" value="" >
         </li>
         <li>
           <label for="button-color">Button Color</label>
-          <input type="text" class="validate-field" data-validation-mandatory="yes" data-validation-type="text" name="button_color" id="button-color" value="" >
+          <input type="text" class="validate-field" data-validation-mandatory="no" data-validation-type="text" name="button_color" id="button-color" value="" >
         </li>
           <input type="submit" name="rabbit-submit-btn" class="rabbit-integrator-button" id="rabbit-integrator-paypal-submit" value="Submit">
         </li>
@@ -65,9 +65,9 @@
   </div>
   <div class="rabbit-integrator-admin-paypal-demo">
     <div class="rabbit-integrator-admin-paypal-demo-inner">
-      <div class="rabbit-integrator-paypal-paragraph">The frontend paypal button has the following appearance:</div>
+        <div class="rabbit-integrator-paypal-paragraph">The frontend paypal button has the following appearance:</div>
         <div class="rabbit-integrator-paypal-btn-wrap">
-          <button class="rabbit-integrator-paypal-btn rabbit-integrator-paypal-btn-default"></button>
+          <button class="rabbit-integrator-paypal-btn"><span>Continue With</span><img src="<?php echo RI_PLUGIN_URL; ?>assets/images/paypal.png"></button>
         </div>
       </div>
     </div>
