@@ -32,7 +32,7 @@
         </li>
         <li>
           <label for="price">Price</label>
-          <input type="text" class="validate-field" data-validation-mandatory="no" data-validation-type="float" name="price" id="price" value="" >
+          <input type="text" class="validate-field" data-validation-mandatory="no" data-validation-type="number" name="price" id="price" value="" >
         </li>
         <li>
           <label for="button-text">Button Text</label>
