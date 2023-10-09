@@ -191,6 +191,11 @@
   font-size: 10px;
   color: red;
 }
+.rabbit-integrator-popup-wrap {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
 /* dashboard */
 .rabbit-integrator-admin-item-list {
   flex: 0 0 100%;
@@ -328,3 +333,86 @@
   scale: 0.6;
 }
 /* template list */
+.rabbit-integrator-admin-template-list {
+  width: 100%;
+}
+#rabbit-integrator-admin-template-list_length label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #961e3a;
+}
+#rabbit-integrator-admin-template-list_length label select {
+  height: 38px;
+  width: 47px;
+  border-radius: 5px;
+  color: #961e3a;
+  border: 1px solid #25080f;
+  box-shadow: rgb(0, 0, 0) 5px 5px;
+  margin: 0 2px 0 2px;
+}
+#rabbit-integrator-admin-template-list_filter label {
+  color: #961e3a;
+}
+#rabbit-integrator-admin-template-list_filter label input[type="search"] {
+  height: 38px;
+  border: 1px solid #25080f;
+  border-radius: 5px;
+  box-shadow: rgb(0, 0, 0) 5px 5px;
+  margin-bottom: 10px;
+}
+#rabbit-integrator-admin-template-list {
+  border: 1px solid #25080f;
+  border-radius: 5px;
+  box-shadow: rgb(0, 0, 0) 5px 5px;
+}
+#rabbit-integrator-admin-template-list thead tr {
+  background-color: #961e3a;
+  color: #fff;
+}
+#rabbit-integrator-admin-template-list thead tr td {
+  font-weight: 500;
+}
+#rabbit-integrator-admin-template-list_info {
+  margin-top: 10px;
+  color: #961e3a;
+}
+#rabbit-integrator-admin-template-list_paginate {
+  margin-top: 10px;
+  color: #961e3a;
+}
+#rabbit-integrator-admin-template-list_paginate a.paginate_button {
+  border: 1px solid #25080f;
+  border-radius: 5px;
+  box-shadow: rgb(0, 0, 0) 5px 5px;
+  margin-right: 5px;
+  color: #961e3a;
+}
+#rabbit-integrator-admin-template-list_paginate a.disabled {
+  background-color: #949494;
+  border: 1px solid #25080f;
+  border-radius: 5px;
+  box-shadow: rgb(0, 0, 0) 5px 5px;
+  margin-right: 5px;
+  color: #fff !important;
+}
+.rabbit-integrator-shortcode-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.rabbit-integrator-button-cpy {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.rabbit-integrator-button-cpy::after {
+  content: url(../images/copy.png);
+  scale: 0.8;
+  display: inline-block;
+}
+.rabbit-integrator-button-edit {
+  text-decoration: none;
+  margin-right: 5px;
+}
+.rabbit-integrator-button-duplicate {
+  text-decoration: none;
+}

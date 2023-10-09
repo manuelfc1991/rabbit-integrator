@@ -10,7 +10,8 @@ class RabbitIn {
     }
     public static function rabbitIn_front()
     {
-
+        if (!is_admin())
+            require_once RI_PLUGIN_BASE_DIR . 'lib/head.php';
     }
     public static function rabbitIn_config()
     {
@@ -46,6 +47,11 @@ class RabbitIn {
                     wp_enqueue_script( 'rabbit_tail_simple_color_picker_script' );
                     wp_register_script( 'rabbit_tail_new_template_script', RI_PLUGIN_URL. 'assets/js/new-template.js');
                     wp_enqueue_script( 'rabbit_tail_new_template_script' );
+                } 
+                else if(in_array($_GET['page'], array('rabbit-integrator-template-list')))
+                {
+                    wp_register_script( 'rabbit_tail_template_list_script', RI_PLUGIN_URL. 'assets/js/template-list.js');
+                    wp_enqueue_script( 'rabbit_tail_template_list_script' );
                 }
             }
         }
@@ -57,6 +63,7 @@ class RabbitIn {
         add_submenu_page('rabbit-integrator-template-list', 'Template List', 'Template List', 'edit_posts', 'rabbit-integrator-template-list', 'rabbitIn_template_list');
         function rabbitIn_dashboard(){
             global $wpdb;
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-popup.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-header.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/rabbit-integrator-dashboard.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-footer.php';
@@ -71,6 +78,7 @@ class RabbitIn {
         function rabbitIn_template_list(){
             global $wpdb;
             $nav = 'temp-list';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-popup.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-header.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/rabbit-integrator-template-list.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-footer.php';
@@ -80,6 +88,12 @@ class RabbitIn {
     {
         add_action( 'wp_ajax_rabbit_integrator_new_template', 'rabbit_integrator_new_template' );
         function rabbit_integrator_new_template() {
+            global $wpdb; 
+            require_once RI_PLUGIN_BASE_DIR. 'pages/ajax/rabbit-integrator-template.php';
+            wp_die(); 
+        }
+        add_action( 'wp_ajax_rabbit_integrator_template_list', 'rabbit_integrator_template_list' );
+        function rabbit_integrator_template_list() {
             global $wpdb; 
             require_once RI_PLUGIN_BASE_DIR. 'pages/ajax/rabbit-integrator-template.php';
             wp_die(); 

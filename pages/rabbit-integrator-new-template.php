@@ -1,26 +1,3 @@
-<!-- <div class="rabbit-integrator-admin-new-template-wrap">
-  <div class="rabbit-integrator-admin-new-template">
-    <form method="post" name="programmatic-seo-frm-post-template-new" id="programmatic-seo-frm-post-template-new" class="programmatic-seo-frm-post-template-new" >
-      <table class="form-table" role="presentation">
-        <tbody>
-          <tr class="form-field form-required">
-            <th scope="row"><label for="title">Title <span class="mandatory">*</span></label></th>
-            <td><input name="title" type="text" id="title" value="" aria-required="true" autocapitalize="none" autocorrect="off"  ></td>
-          </tr>  
-          <tr class="form-field">
-              <th scope="row"></th>
-              <td>
-                <p class="submit"><input type="submit" name="submit-btn" class="button button-primary" value="Submit"></p>
-              </td>
-          </tr>   
-          </tbody>
-      </table>
-    </form>
-  </div>
-  <div class="rabbit-integrator-admin-new-template-demo">
-      <button class="rabbit-integrator-paypal-btn">Paypal</button>
-  </div>
-</div> -->
 <div class="rabbit-integrator-admin-row">
   <div class="rabbit-integrator-admin-form">
     <h4>New PayPal Button</h4>
