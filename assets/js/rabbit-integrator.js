@@ -13,4 +13,7 @@ jQuery(document).ready(function ($) {
     );
   }
   rabbit_init();
+  html =
+    "<div class='rabbit-integrator-popup-success'><div class='rabbit-integrator-popup-close-btn'></div><img src='images/prize.png' /><strong>Template created successfully.</strong></div>";
+  jQuery(".rabbit-integrator-popup-wrap").append(html);
 });

@@ -17,7 +17,9 @@ function new_paypal_form_submit() {
       success: function (json) {
         $btn_element.prop("disabled", false).html("Submit");
         if (json.msg == "Y") {
-          alert("Experience added Successfully");
+          html =
+            "<div class='rabbit-integrator-popup-success'><strong>Template created Successfully.</strong></div>";
+          jQuery(".rabbit-integrator-popup-wrap").append(html);
           jQuery("#rabbit-integrator-template-new").trigger("reset");
         } else if (json.status == "N") {
         }
