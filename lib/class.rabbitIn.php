@@ -17,6 +17,7 @@ class RabbitIn {
         self::rabbitIn_navbar();
         self::rabbitIn_asset();
         self::rabbitIn_pages();
+        self::rabbitIn_ajaxfunction();
     }
     public static function rabbitIn_navbar() {
 
@@ -53,6 +54,7 @@ class RabbitIn {
     public static function rabbitIn_pages() {
         add_menu_page('Dashbord', 'Rabbit Integrator', 'edit_posts', 'rabbit-integrator-dashboard', 'rabbitIn_dashboard', 'dashicons-bank');
         add_submenu_page('rabbit-integrator-new-template', 'New Template', 'New Template', 'edit_posts', 'rabbit-integrator-new-template', 'rabbitIn_new_template');
+        add_submenu_page('rabbit-integrator-template-list', 'Template List', 'Template List', 'edit_posts', 'rabbit-integrator-template-list', 'rabbitIn_template_list');
         function rabbitIn_dashboard(){
             global $wpdb;
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-header.php';
@@ -61,53 +63,46 @@ class RabbitIn {
         }
         function rabbitIn_new_template(){
             global $wpdb;
+            $nav = 'new-temp';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-header.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/rabbit-integrator-new-template.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-footer.php';
+        }
+        function rabbitIn_template_list(){
+            global $wpdb;
+            $nav = 'temp-list';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-header.php';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/rabbit-integrator-template-list.php';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-footer.php';
+        }
+    }
+    public static function rabbitIn_ajaxfunction()
+    {
+        add_action( 'wp_ajax_rabbit_integrator_new_template', 'rabbit_integrator_new_template' );
+        function rabbit_integrator_new_template() {
+            global $wpdb; 
+            require_once RI_PLUGIN_BASE_DIR. 'pages/ajax/rabbit-integrator-template.php';
+            wp_die(); 
         }
     }
     public static function rabbitIn_activation() {
         global $wpdb;
         try
         {
-            // dbDelta("CREATE TABLE `".$wpdb->prefix. "rabbit_creator_template` (
-            //     `template_id` bigint(20) NOT NULL AUTO_INCREMENT,
-            //     `template_name` varchar(250) NOT NULL,
-            //     `template_post_type` varchar(250) NOT NULL,
-            //     `template_post_author` bigint(20) NOT NULL,
-            //     `template_post_title` varchar(250) NOT NULL,
-            //     `template_post_content` longtext NOT NULL,
-            //     `template_data_file` varchar(250) NOT NULL,
-            //     `template_data_file_skip_row` VARCHAR(10) NOT NULL,
-            //     `template_placeholder` text NOT NULL,
-            //     `template_data_column` text NOT NULL,
-            //     `template_post_date_column` text NOT NULL,
-            //     `template_post_ids` LONGTEXT NOT NULL,
-            //     `template_post_ids_temp` LONGTEXT NOT NULL, 
-            //     `template_category` TEXT NOT NULL,
-            //     `template_tag` TEXT NOT NULL,
-            //     `template_post_slug_column` TEXT NOT NULL,
-            //     `template_page_template` TEXT NOT NULL,
-            //     `template_parent_page` INT NOT NULL,
-            //     `template_post_status` TEXT NOT NULL,
-            //     `template_seo_title` TEXT NOT NULL,
-            //     `template_seo_description` TEXT NOT NULL,
-            //     `template_seo_focus_keyword` TEXT NOT NULL,
-            //     `template_featured_image_column` text NOT NULL,
-            //     `template_featured_image_alt_column` INT NOT NULL,
-            //     `template_featured_image_title_column` INT NOT NULL,
-            //     `template_featured_image_caption_column` INT NOT NULL,
-            //     `template_featured_image_description_column` INT NOT NULL,
-            //     `template_keyword` TEXT NOT NULL,
-            //     `template_robots_meta` TEXT NOT NULL,
-            //     `template_parent_page_column` TEXT NOT NULL,
-            //     `template_datetime` datetime NOT NULL,
-            //     `template_csv_rows` LONGTEXT NOT NULL,
-            //     `template_csv_data` LONGTEXT NOT NULL,
-            //     `template_status` ENUM('publish','draft') NOT NULL DEFAULT 'publish',
-            //     `template_processing_pointer` BIGINT NOT NULL,
-            //     PRIMARY KEY (`template_id`)
-            // );");
+            dbDelta("CREATE TABLE `".$wpdb->prefix. "rabbit_integrator_template` (
+                `template_id` bigint(20) NOT NULL AUTO_INCREMENT,
+                `template_title` varchar(250) NOT NULL,
+                `template_price` float NOT NULL,
+                `template_btn_txt` varchar(250) NOT NULL,
+                `template_btn_txt_size` varchar(250) NOT NULL,
+                `template_btn_width` varchar(250) NOT NULL,
+                `template_btn_height` varchar(250) NOT NULL,
+                `template_btn_txt_color` varchar(250) NOT NULL,
+                `template_btn_bg_color` varchar(250) NOT NULL,
+                `template_status` enum('Y','N') NOT NULL DEFAULT 'N',
+                `template_datetime` datetime NOT NULL DEFAULT current_timestamp()
+                PRIMARY KEY (`template_id`)
+            );");
 
             // dbDelta("CREATE TABLE `".$wpdb->prefix. "rabbit_creator` (
             //     `id` int(11) NOT NULL AUTO_INCREMENT,

@@ -6,24 +6,24 @@ function new_paypal_form_submit() {
       .html(
         '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Submitting...'
       );
-    // $.ajax({
-    //   url: base_url + "api/job-feed-source-add-data/",
-    //   data: $("#feed_post_form").serialize(),
-    //   type: "POST",
-    //   dataType: "json",
-    //   success: function (json) {
-    //     $btn_element.prop("disabled", false).html("Submit");
-    //     if (json.msg == "Y") {
-    //       alert("Experience added Successfully");
-    //       $("#feed_post_form").trigger("reset");
-    //     } else if (json.status == "N") {
-    //       var element = $('#feed_post_form [name="rf_title"]');
-    //       element.focus();
-    //       element.addClass("form-validation-error");
-    //     }
-    //   },
-    //   error: function (err) {},
-    // });
+    jQuery.ajax({
+      url: ajaxurl,
+      data: {
+        template_data: jQuery("#rabbit-integrator-template-new").serialize(),
+        action: "rabbit_integrator_new_template",
+      },
+      type: "POST",
+      dataType: "json",
+      success: function (json) {
+        $btn_element.prop("disabled", false).html("Submit");
+        if (json.msg == "Y") {
+          alert("Experience added Successfully");
+          jQuery("#rabbit-integrator-template-new").trigger("reset");
+        } else if (json.status == "N") {
+        }
+      },
+      error: function (err) {},
+    });
   }
 }
 

@@ -11,7 +11,7 @@
                 </a>
             </li>
             <li>
-                <a href="?page=rabbit-integrator-dashboard">
+                <a href="?page=rabbit-integrator-template-list">
                     <div class="rabbit-integrator-admin-icon">
                         <img src="<?php echo RI_PLUGIN_URL; ?>assets/images/template-list.png" />
                     </div>
