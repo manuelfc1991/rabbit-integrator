@@ -1,3 +1,5 @@
 <div class="rabbit-integrator-popup-wrap">
-test
+  <div class="rabbit-integrator-popup-success">
+    test
+  </div>
 </div>

@@ -38,6 +38,9 @@ class RabbitIn {
             wp_register_script( 'rabbit_tail_validator_script', RI_PLUGIN_URL. 'assets/js/validator.js');
             wp_enqueue_script( 'rabbit_tail_validator_script' );
 
+            wp_register_script( 'rabbit_tail_rabbit_integrator_script', RI_PLUGIN_URL. 'assets/js/rabbit-integrator.js');
+            wp_enqueue_script( 'rabbit_tail_rabbit_integrator_script' );
+
             if (isset($_GET['page'])) {
                 if(in_array($_GET['page'], array('rabbit-integrator-new-template')))
                 {
@@ -71,6 +74,7 @@ class RabbitIn {
         function rabbitIn_new_template(){
             global $wpdb;
             $nav = 'new-temp';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-popup.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-header.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/rabbit-integrator-new-template.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-footer.php';
