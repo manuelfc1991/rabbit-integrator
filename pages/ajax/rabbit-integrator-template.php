@@ -1,6 +1,6 @@
 <?php
 $action = '';
-$html = array('msg' => 'N', 'html' => '');
+$html = array('msg' => 'N', 'html' => '', 'ID' => 0);
 if(isset($_REQUEST['action']))
 {
     $action = $_REQUEST['action'];
@@ -18,7 +18,9 @@ if($action == 'rabbit_integrator_new_template')
     $btn_txt_color = $template_data_array['button_text_color'];
     $btn_color = $template_data_array['button_color'];
     $wpdb->insert($wpdb->prefix."rabbit_integrator_template", array( 'template_title' => $title, 'template_price' => $price, 'template_btn_txt' => $btn_txt, 'template_btn_txt_size' => $btn_txt_size, 'template_btn_width' => $btn_width, 'template_btn_height' => $btn_height, 'template_btn_txt_color' => $btn_txt_color, 'template_btn_bg_color' => $btn_color, 'template_status' => 'Y'), array('%s','%s','%s','%s','%s','%s','%s','%s','%s') );
+    $inserted_id = $wpdb->insert_id;
     $html['msg'] = 'Y';
+    $html['ID'] = $inserted_id;
     echo json_encode($html);
 }
 else if($action == 'rabbit_integrator_template_list')

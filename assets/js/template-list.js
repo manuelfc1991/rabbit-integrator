@@ -52,4 +52,36 @@ jQuery(document).ready(function (e) {
         "0 24px 0 8px"
       );
     });
+
+  jQuery(document).on("click", ".rabbit-integrator-button-cpy", function (e) {
+    jQuery(".rabbit-integrator-popup-wrap").addClass(
+      "rabbit-integrator-popup-active"
+    );
+    jQuery("html, body").animate(
+      {
+        scrollTop: 0,
+      },
+      100
+    );
+    var textToCopy = jQuery(this)
+      .siblings(".rabbit-integrator-shortcode")
+      .text();
+    var $temp = jQuery("<textarea>");
+    jQuery("body").append($temp);
+    $temp.val(textToCopy).select();
+    document.execCommand("copy");
+    $temp.remove();
+    html = "<div class='rabbit-integrator-popup-copied'>Copied</div>";
+    jQuery(".rabbit-integrator-popup-wrap").append(html);
+
+    setTimeout(function () {
+      jQuery(".rabbit-integrator-popup-copied").hide(400);
+      setTimeout(function () {
+        jQuery(".rabbit-integrator-popup-copied").remove();
+        jQuery(".rabbit-integrator-popup-wrap").removeClass(
+          "rabbit-integrator-popup-active"
+        );
+      }, 500);
+    }, 200);
+  });
 });

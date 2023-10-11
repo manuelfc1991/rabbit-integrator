@@ -198,18 +198,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
-  background-color: #fff;
   opacity: 0.9;
   position: absolute;
+  left: -2px;
+}
+.rabbit-integrator-popup-active {
+  z-index: 2;
+  background-color: #fff;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
 }
 .rabbit-integrator-popup-success {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #1aa052;
   width: 20%;
-  height: 20%;
+  height: 25%;
   align-self: flex-start;
-  margin-top: 10%;
+  margin-top: 15%;
   text-align: center;
   padding: 20px;
   border: 1px solid #000;
@@ -217,16 +224,53 @@
   border-radius: 5px;
   position: relative;
 }
-.rabbit-integrator-popup-success .rabbit-integrator-popup-close-btn::after {
-  content: url(../images/close.png);
-  display: inline-block;
+.rabbit-integrator-popup-success .rabbit-integrator-popup-close-btn {
   position: absolute;
   top: 0;
   right: 0;
   cursor: pointer;
 }
+.rabbit-integrator-popup-success .rabbit-integrator-popup-close-btn::after {
+  content: url(../images/close.png);
+  display: inline-block;
+}
 .rabbit-integrator-popup-success strong {
+  color: #fff;
+  display: block;
+  margin: 5px 0 10px 0;
+  font-weight: 500;
+}
+.rabbit-integrator-popup-output {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f1;
+  border: 1px solid #000;
+  box-shadow: rgb(0, 0, 0) 5px 5px;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+  margin-top: 10px;
+}
+.rabbit-integrator-popup-output-text {
   color: #961e3a;
+}
+.rabbit-integrator-popup-output img {
+  margin-left: 5px;
+  cursor: pointer;
+  scale: 0.9;
+}
+.rabbit-integrator-popup-copied {
+  display: block;
+  position: fixed;
+  top: 40px;
+  right: 15px;
+  padding: 5px 20px 5px 20px;
+  background-color: #1aa052;
+  color: #fff;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #000;
+  box-shadow: rgb(0, 0, 0) 5px 5px;
 }
 /* dashboard */
 .rabbit-integrator-admin-item-list {
@@ -375,7 +419,7 @@
 }
 #rabbit-integrator-admin-template-list_length label select {
   height: 38px;
-  width: 47px;
+  width: 50px;
   border-radius: 5px;
   color: #961e3a;
   border: 1px solid #25080f;
@@ -403,6 +447,9 @@
 }
 #rabbit-integrator-admin-template-list thead tr td {
   font-weight: 500;
+}
+#rabbit-integrator-admin-template-list tbody tr td {
+  padding: 0 10px 0 10px;
 }
 #rabbit-integrator-admin-template-list_info {
   margin-top: 10px;
@@ -435,6 +482,7 @@
 .rabbit-integrator-button-cpy {
   margin-left: 10px;
   cursor: pointer;
+  padding: 20px;
 }
 .rabbit-integrator-button-cpy::after {
   content: url(../images/copy.png);

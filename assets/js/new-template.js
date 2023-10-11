@@ -1,4 +1,7 @@
 function new_paypal_form_submit() {
+  var rabbit_integrator_url = jQuery(".rabbit-integrator-admin-logo a").attr(
+    "data-assets-url"
+  );
   if (validate("#rabbit-integrator-template-new")) {
     $btn_element = jQuery("#rabbit-integrator-paypal-submit");
     $btn_element
@@ -17,9 +20,26 @@ function new_paypal_form_submit() {
       success: function (json) {
         $btn_element.prop("disabled", false).html("Submit");
         if (json.msg == "Y") {
+          jQuery(".rabbit-integrator-popup-wrap").addClass(
+            "rabbit-integrator-popup-active"
+          );
+          jQuery("html, body").animate(
+            {
+              scrollTop: 0,
+            },
+            800
+          );
           html =
-            "<div class='rabbit-integrator-popup-success'><strong>Template created Successfully.</strong></div>";
-          jQuery(".rabbit-integrator-popup-wrap").append(html);
+            "<div class='rabbit-integrator-popup-success'><div class='rabbit-integrator-popup-close-btn'></div><div class='rabbit-integrator-popup-content'><img src='" +
+            rabbit_integrator_url +
+            "assets/images/done.png' /><strong>Template created successfully.</strong><div class='rabbit-integrator-popup-output'><div class='rabbit-integrator-popup-output-text'>[rabbit_integrator id='" +
+            json.ID +
+            "']</div><img class='rabbit-integrator-popup-output-copy' src='" +
+            rabbit_integrator_url +
+            "assets/images/copy.png' alt='copy' title='copy shortcode' /></div></div></div>";
+          var success_popup = jQuery(html).hide();
+          jQuery(".rabbit-integrator-popup-wrap").append(success_popup);
+          success_popup.show(400);
           jQuery("#rabbit-integrator-template-new").trigger("reset");
         } else if (json.status == "N") {
         }
@@ -34,6 +54,43 @@ jQuery(document).ready(function (e) {
     e.preventDefault();
     new_paypal_form_submit();
   });
+
+  jQuery(document).on(
+    "click",
+    ".rabbit-integrator-popup-close-btn",
+    function (e) {
+      e.preventDefault();
+      jQuery(".rabbit-integrator-popup-success").hide(200);
+      setTimeout(function () {
+        jQuery(".rabbit-integrator-popup-success").remove();
+        jQuery(".rabbit-integrator-popup-wrap").removeClass(
+          "rabbit-integrator-popup-active"
+        );
+      }, 500);
+    }
+  );
+
+  jQuery(document).on(
+    "click",
+    ".rabbit-integrator-popup-output-copy",
+    function (e) {
+      var textToCopy = jQuery(".rabbit-integrator-popup-output-text").text();
+      var $temp = jQuery("<textarea>");
+      jQuery("body").append($temp);
+      $temp.val(textToCopy).select();
+      document.execCommand("copy");
+      $temp.remove();
+      html = "<div class='rabbit-integrator-popup-copied'>Copied</div>";
+      jQuery(".rabbit-integrator-popup-wrap").append(html);
+
+      setTimeout(function () {
+        jQuery(".rabbit-integrator-popup-copied").hide(400);
+        setTimeout(function () {
+          jQuery(".rabbit-integrator-popup-copied").remove();
+        }, 500);
+      }, 200);
+    }
+  );
 
   jQuery(
     "#price,#button-text,#button-text-size,#button-width,#button-height,#button-text-color,#button-color"
