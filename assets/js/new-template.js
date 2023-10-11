@@ -29,10 +29,20 @@ function new_paypal_form_submit() {
             },
             800
           );
+          var success_text = "Template created successfully.";
+          if (
+            jQuery(".rabbit-integrator-template-new").hasClass(
+              "rabbit-integrator-template-edit"
+            )
+          ) {
+            success_text = "Template updated successfully.";
+          }
           html =
             "<div class='rabbit-integrator-popup-success'><div class='rabbit-integrator-popup-close-btn'></div><div class='rabbit-integrator-popup-content'><img src='" +
             rabbit_integrator_url +
-            "assets/images/done.png' /><strong>Template created successfully.</strong><div class='rabbit-integrator-popup-output'><div class='rabbit-integrator-popup-output-text'>[rabbit_integrator id='" +
+            "assets/images/done.png' /><strong>" +
+            success_text +
+            "</strong><div class='rabbit-integrator-popup-output'><div class='rabbit-integrator-popup-output-text'>[rabbit_integrator id='" +
             json.ID +
             "']</div><img class='rabbit-integrator-popup-output-copy' src='" +
             rabbit_integrator_url +
@@ -136,4 +146,15 @@ jQuery(document).ready(function (e) {
       jQuery(this).keyup();
     },
   });
+
+  if (
+    jQuery(".rabbit-integrator-template-new").hasClass(
+      "rabbit-integrator-template-edit"
+    ) ||
+    jQuery(".rabbit-integrator-template-new").hasClass(
+      "rabbit-integrator-template-cpy"
+    )
+  ) {
+    jQuery("#button-text").keyup();
+  }
 });

@@ -33,13 +33,17 @@ jQuery(document).ready(function (e) {
           orderable: false,
           mRender: function (data, type, row) {
             var html =
-              '<a href="?page=programmatic-seo-template-edit&id=' +
+              '<a href="?page=rabbit-integrator-edit-template&id=' +
               row["template_id"] +
               '" class="rabbit-integrator-button rabbit-integrator-button-edit" >Edit</a>';
             html +=
-              ' <a href="?page=programmatic-seo-template-new&cpy_id=' +
+              ' <a href="?page=rabbit-integrator-new-template&cpy_id=' +
               row["template_id"] +
               '" class="rabbit-integrator-button rabbit-integrator-button-duplicate" >Duplicate</a>';
+            html +=
+              ' <a href="?page=rabbit-integrator-new-template&cpy_id=' +
+              row["template_id"] +
+              '" class="rabbit-integrator-button rabbit-integrator-button-delete" >Delete</a>';
             return html;
           },
         },
@@ -57,12 +61,12 @@ jQuery(document).ready(function (e) {
     jQuery(".rabbit-integrator-popup-wrap").addClass(
       "rabbit-integrator-popup-active"
     );
-    jQuery("html, body").animate(
-      {
-        scrollTop: 0,
-      },
-      100
-    );
+    // jQuery("html, body").animate(
+    //   {
+    //     scrollTop: 0,
+    //   },
+    //   100
+    // );
     var textToCopy = jQuery(this)
       .siblings(".rabbit-integrator-shortcode")
       .text();

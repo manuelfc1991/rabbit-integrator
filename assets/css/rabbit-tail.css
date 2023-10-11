@@ -450,6 +450,7 @@
 }
 #rabbit-integrator-admin-template-list tbody tr td {
   padding: 0 10px 0 10px;
+  height: 45px;
 }
 #rabbit-integrator-admin-template-list_info {
   margin-top: 10px;
@@ -489,10 +490,12 @@
   scale: 0.8;
   display: inline-block;
 }
-.rabbit-integrator-button-edit {
-  text-decoration: none;
+.rabbit-integrator-button-edit,
+.rabbit-integrator-button-duplicate {
   margin-right: 5px;
 }
-.rabbit-integrator-button-duplicate {
+.rabbit-integrator-button-edit,
+.rabbit-integrator-button-duplicate,
+.rabbit-integrator-button-delete {
   text-decoration: none;
 }

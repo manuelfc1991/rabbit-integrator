@@ -42,7 +42,7 @@ class RabbitIn {
             wp_enqueue_script( 'rabbit_tail_rabbit_integrator_script' );
 
             if (isset($_GET['page'])) {
-                if(in_array($_GET['page'], array('rabbit-integrator-new-template')))
+                if(in_array($_GET['page'], array('rabbit-integrator-new-template','rabbit-integrator-edit-template')))
                 {
                     wp_register_style('rabbit_tail_simple_color_picker_style', RI_PLUGIN_URL. 'assets/css/jquery.simple-color-picker.css');
                     wp_enqueue_style('rabbit_tail_simple_color_picker_style');
@@ -63,6 +63,7 @@ class RabbitIn {
     public static function rabbitIn_pages() {
         add_menu_page('Dashbord', 'Rabbit Integrator', 'edit_posts', 'rabbit-integrator-dashboard', 'rabbitIn_dashboard', 'dashicons-bank');
         add_submenu_page('rabbit-integrator-new-template', 'New Template', 'New Template', 'edit_posts', 'rabbit-integrator-new-template', 'rabbitIn_new_template');
+        add_submenu_page('rabbit-integrator-edit-template', 'Edit Template', 'Edit Template', 'edit_posts', 'rabbit-integrator-edit-template', 'rabbitIn_edit_template');
         add_submenu_page('rabbit-integrator-template-list', 'Template List', 'Template List', 'edit_posts', 'rabbit-integrator-template-list', 'rabbitIn_template_list');
         function rabbitIn_dashboard(){
             global $wpdb;
@@ -73,6 +74,30 @@ class RabbitIn {
         }
         function rabbitIn_new_template(){
             global $wpdb;
+            $cpy_id = isset($_GET['cpy_id']) ? $_GET['cpy_id'] : null;
+            $title = '';
+            $price = '';
+            $button_text = '';
+            $button_text_size = '';
+            $button_width = '';
+            $button_height = '';
+            $button_text_color = '';
+            $button_color = '';
+            $data_flag = false;
+            $cpy_flag = false;
+            $templateResults = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "rabbit_integrator_template WHERE template_id = '$cpy_id'", ARRAY_A);
+            if($templateResults)
+            {
+                $cpy_flag = true;
+                $title = $templateResults[0]['template_title'];
+                $price = empty($templateResults[0]['template_price']) ? '' : $templateResults[0]['template_price'];    
+                $button_text = $templateResults[0]['template_btn_txt']; 
+                $button_text_size = $templateResults[0]['template_btn_txt_size'];
+                $button_width = $templateResults[0]['template_btn_width'];
+                $button_height = $templateResults[0]['template_btn_height'];
+                $button_text_color = $templateResults[0]['template_btn_txt_color'];
+                $button_color = $templateResults[0]['template_btn_bg_color'];
+            }
             $nav = 'new-temp';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-popup.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-header.php';
@@ -85,6 +110,37 @@ class RabbitIn {
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-popup.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-header.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/rabbit-integrator-template-list.php';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-footer.php';
+        }
+        function rabbitIn_edit_template(){
+            global $wpdb;
+            $id = isset($_GET['id']) ? $_GET['id'] : null;
+            $title = '';
+            $price = '';
+            $button_text = '';
+            $button_text_size = '';
+            $button_width = '';
+            $button_height = '';
+            $button_text_color = '';
+            $button_color = '';
+            $data_flag = false;
+            $templateResults = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "rabbit_integrator_template WHERE template_id = '$id'", ARRAY_A);
+            if($templateResults)
+            {
+                $data_flag = true;
+                $title = $templateResults[0]['template_title'];
+                $price = empty($templateResults[0]['template_price']) ? '' : $templateResults[0]['template_price'];    
+                $button_text = $templateResults[0]['template_btn_txt']; 
+                $button_text_size = $templateResults[0]['template_btn_txt_size'];
+                $button_width = $templateResults[0]['template_btn_width'];
+                $button_height = $templateResults[0]['template_btn_height'];
+                $button_text_color = $templateResults[0]['template_btn_txt_color'];
+                $button_color = $templateResults[0]['template_btn_bg_color'];
+            }
+            $nav = 'new-temp';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-popup.php';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-header.php';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/rabbit-integrator-new-template.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-footer.php';
         }
     }
