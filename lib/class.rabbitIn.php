@@ -10,7 +10,7 @@ class RabbitIn {
     }
     public static function rabbitIn_front()
     {
-        if (!is_admin())
+        if (!is_admin()) 
             require_once RI_PLUGIN_BASE_DIR . 'lib/head.php';
     }
     public static function rabbitIn_config()
