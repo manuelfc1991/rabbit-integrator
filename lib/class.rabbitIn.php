@@ -65,6 +65,7 @@ class RabbitIn {
         add_submenu_page('rabbit-integrator-new-template', 'New Template', 'New Template', 'edit_posts', 'rabbit-integrator-new-template', 'rabbitIn_new_template');
         add_submenu_page('rabbit-integrator-edit-template', 'Edit Template', 'Edit Template', 'edit_posts', 'rabbit-integrator-edit-template', 'rabbitIn_edit_template');
         add_submenu_page('rabbit-integrator-template-list', 'Template List', 'Template List', 'edit_posts', 'rabbit-integrator-template-list', 'rabbitIn_template_list');
+        add_submenu_page('rabbit-integrator-settings', 'Settings', 'Settings', 'edit_posts', 'rabbit-integrator-settings', 'rabbitIn_settings');
         function rabbitIn_dashboard(){
             global $wpdb;
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-popup.php';
@@ -143,6 +144,14 @@ class RabbitIn {
             require_once RI_PLUGIN_BASE_DIR. 'pages/rabbit-integrator-new-template.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-footer.php';
         }
+        function rabbitIn_settings(){
+            global $wpdb;
+            $nav = '';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-popup.php';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-header.php';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/rabbit-integrator-settings.php';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-footer.php';
+        }
     }
     public static function rabbitIn_ajaxfunction()
     {
@@ -178,21 +187,19 @@ class RabbitIn {
                 PRIMARY KEY (`template_id`)
             );");
 
-            // dbDelta("CREATE TABLE `".$wpdb->prefix. "rabbit_creator` (
-            //     `id` int(11) NOT NULL AUTO_INCREMENT,
-            //     `option_name` text NOT NULL,
-            //     `option_value` text NOT NULL,
-            //     `status` enum('Y','N') NOT NULL DEFAULT 'Y',
-            //     PRIMARY KEY (`id`)
-            // );");
-
-            // dbDelta("CREATE TABLE `".$wpdb->prefix. "rabbit_creator_pages` (
-            //     `page_id` bigint(20) NOT NULL AUTO_INCREMENT,
-            //     `post_id` bigint(20) NOT NULL,
-            //     `template_id` bigint(20) NOT NULL,
-            //     `created_date` datetime NOT NULL DEFAULT current_timestamp(),
-            //     PRIMARY KEY (`page_id`)
-            // );");
+            dbDelta("CREATE TABLE `".$wpdb->prefix. "rabbit_integrator_settings` (
+                `settings_id` int(11) NOT NULL AUTO_INCREMENT,
+                `paypal_id` varchar(500) NOT NULL,
+                `server` enum('sandbox','live') NOT NULL,
+                `success_url` tinytext NOT NULL,
+                `return_url` tinytext NOT NULL,
+                `notify_url` tinytext NOT NULL,
+                `currency` varchar(50) NOT NULL,
+                `tax` float NOT NULL,
+                `settings_status` enum('Y','N') NOT NULL DEFAULT 'Y',
+                `settings_datetime` datetime NOT NULL DEFAULT current_timestamp(),
+                PRIMARY KEY (`settings_id`)
+            );");
         } 
         catch (Exception $e) {}	
     }

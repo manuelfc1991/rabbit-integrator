@@ -35,7 +35,7 @@
                 </a>
             </li>
             <li>
-                <a href="?page=rabbit-integrator-dashboard">
+                <a href="?page=rabbit-integrator-settings">
                     <div class="rabbit-integrator-admin-icon">
                         <img src="<?php echo RI_PLUGIN_URL; ?>assets/images/settings.png" />
                     </div>

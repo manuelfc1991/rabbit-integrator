@@ -35,6 +35,7 @@
           <label for="button-color">Button Color</label>
           <input type="text" class="validate-field" data-validation-mandatory="no" data-validation-type="text" name="button_color" id="button-color" value="<?php echo $button_color; ?>" >
         </li>
+        <li>
           <?php if($data_flag) { ?>
           <input type="hidden" name="id" value="<?php echo $id; ?>">
           <?php } ?>

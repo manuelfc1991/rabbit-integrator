@@ -6,7 +6,12 @@ jQuery(document).ready(function ($) {
     );
   }
 });
-function programmatic_seo_media_uploader(btn_id, value_id, title, btn_title) {
+function rabbit_integrator_admin_media_uploader(
+  btn_id,
+  value_id,
+  title,
+  btn_title
+) {
   var custom_uploader;
   jQuery(btn_id).click(function (e) {
     e.preventDefault();
