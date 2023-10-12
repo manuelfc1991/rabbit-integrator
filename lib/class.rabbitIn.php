@@ -282,7 +282,7 @@ class RabbitIn {
                 `template_btn_txt_color` varchar(250) NOT NULL,
                 `template_btn_bg_color` varchar(250) NOT NULL,
                 `template_status` enum('Y','N') NOT NULL DEFAULT 'N',
-                `template_datetime` datetime NOT NULL DEFAULT current_timestamp()
+                `template_datetime` datetime NOT NULL DEFAULT current_timestamp(),
                 PRIMARY KEY (`template_id`)
             );");
 
