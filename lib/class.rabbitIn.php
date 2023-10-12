@@ -56,6 +56,11 @@ class RabbitIn {
                     wp_register_script( 'rabbit_tail_template_list_script', RI_PLUGIN_URL. 'assets/js/template-list.js');
                     wp_enqueue_script( 'rabbit_tail_template_list_script' );
                 }
+                else if(in_array($_GET['page'], array('rabbit-integrator-settings')))
+                {
+                    wp_register_script( 'rabbit_tail_settings_script', RI_PLUGIN_URL. 'assets/js/settings.js');
+                    wp_enqueue_script( 'rabbit_tail_settings_script' );
+                }
             }
         }
         add_action( 'admin_enqueue_scripts', 'rabbitin_plugin_script_style' );
@@ -147,6 +152,24 @@ class RabbitIn {
         function rabbitIn_settings(){
             global $wpdb;
             $nav = '';
+            $paypal_id  = ''; 
+            $server = '';
+            $success_url = '';
+            $return_url = '';
+            $notify_url = '';
+            $currency = '';
+            $tax = '';
+            $settingsResults = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "rabbit_integrator_settings ORDER BY settings_id DESC", ARRAY_A);
+            if($settingsResults)
+            {
+                $paypal_id  = $settingsResults[0]['paypal_id']; 
+                $server = $settingsResults[0]['server']; 
+                $success_url = $settingsResults[0]['success_url']; 
+                $return_url = $settingsResults[0]['return_url']; 
+                $notify_url = $settingsResults[0]['notify_url']; 
+                $currency = $settingsResults[0]['currency']; 
+                $tax = $settingsResults[0]['tax']; 
+            }
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-popup.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-header.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/rabbit-integrator-settings.php';
@@ -166,6 +189,82 @@ class RabbitIn {
             global $wpdb; 
             require_once RI_PLUGIN_BASE_DIR. 'pages/ajax/rabbit-integrator-template.php';
             wp_die(); 
+        }
+        add_action( 'wp_ajax_rabbit_integrator_settings', 'rabbit_integrator_settings' );
+        function rabbit_integrator_settings() {
+            global $wpdb; 
+            require_once RI_PLUGIN_BASE_DIR. 'pages/ajax/rabbit-integrator-settings.php';
+            wp_die(); 
+        }
+    }
+    public static function rabbitIn_generate_pages() {
+        $page_content = '<div class="rabbit-integrator-paypal-warning">[rabbit_integrator_ipn] Please do not delete this page, as it contains the vital PayPal IPN shortcode necessary for handling PayPal Instant Payment Notifications. Your cooperation is greatly appreciated, and if you require any assistance, please don\'t hesitate to reach out. Thank you.</div>';
+        $page_slug = 'rabbit-integrator-ipn';
+        $page = get_page_by_path($page_slug);
+        if (empty($page)) {
+            $page_data = array(
+                'post_content'   => $page_content,
+                'post_name'      => $page_slug,
+                'post_title'     => 'Rabbit Integrator PayPal Ipn Page [do not delete]',
+                'post_status'    => 'publish',
+                'post_type'      => 'page',
+                'comment_status' => 'closed',
+            );
+            $page_id = wp_insert_post($page_data);
+
+            if (!is_wp_error($page_id)) {
+                //echo 'Page ['.$page_slug.'] created successfully with ID: ' . $page_id;
+            } else {
+                //echo 'Error creating page: ' . $page_id->get_error_message();
+            }
+        } else {
+            //echo 'Page with the specified slug already exists.';
+        }
+
+        $page_content = '<div class="rabbit-integrator-paypal-success"><img src="'.RI_PLUGIN_URL.'/assets/images/check.png" /><strong>Payment has been successfully completed.</strong></div>';
+        $page_slug = 'rabbit-integrator-paypal-success';
+        $page = get_page_by_path($page_slug);
+        if (empty($page)) {
+            $page_data = array(
+                'post_content'   => $page_content,
+                'post_name'      => $page_slug,
+                'post_title'     => 'Rabbit Integrator PayPal Success Page',
+                'post_status'    => 'publish',
+                'post_type'      => 'page',
+                'comment_status' => 'closed',
+            );
+            $page_id = wp_insert_post($page_data);
+
+            if (!is_wp_error($page_id)) {
+                //echo 'Page ['.$page_slug.'] created successfully with ID: ' . $page_id;
+            } else {
+                //echo 'Error creating page: ' . $page_id->get_error_message();
+            }
+        } else {
+            //echo 'Page with the specified slug already exists.';
+        }
+
+        $page_content = '<div class="rabbit-integrator-paypal-failed"><img src="'.RI_PLUGIN_URL.'/assets/images/cross.png" /><strong>I\'m sorry, but your payment could not be processed successfully. Your transaction has been cancelled. Please double-check your payment details and try again. If the problem persists, feel free to reach out to our customer support for further assistance.</strong></div>';
+        $page_slug = 'rabbit-integrator-paypal-failed';
+        $page = get_page_by_path($page_slug);
+        if (empty($page)) {
+            $page_data = array(
+                'post_content'   => $page_content,
+                'post_name'      => $page_slug,
+                'post_title'     => 'Rabbit Integrator PayPal Cancelled Page',
+                'post_status'    => 'publish',
+                'post_type'      => 'page',
+                'comment_status' => 'closed',
+            );
+            $page_id = wp_insert_post($page_data);
+
+            if (!is_wp_error($page_id)) {
+                //echo 'Page ['.$page_slug.'] created successfully with ID: ' . $page_id;
+            } else {
+                //echo 'Error creating page: ' . $page_id->get_error_message();
+            }
+        } else {
+            //echo 'Page with the specified slug already exists.';
         }
     }
     public static function rabbitIn_activation() {
@@ -200,6 +299,7 @@ class RabbitIn {
                 `settings_datetime` datetime NOT NULL DEFAULT current_timestamp(),
                 PRIMARY KEY (`settings_id`)
             );");
+            self::rabbitIn_generate_pages();
         } 
         catch (Exception $e) {}	
     }

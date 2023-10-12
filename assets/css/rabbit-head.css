@@ -54,3 +54,30 @@
 .rabbit-integrator-processing-content {
   margin-bottom: 10px;
 }
+/* ipn */
+.rabbit-integrator-paypal-warning {
+  color: #ff003c;
+  display: block;
+  font-size: 20px;
+  font-weight: 500;
+}
+/* success */
+.rabbit-integrator-paypal-success {
+  text-align: center;
+}
+.rabbit-integrator-paypal-success strong {
+  display: block;
+  font-size: 20px;
+  font-weight: 500;
+  color: #1aa052;
+}
+/* failed */
+.rabbit-integrator-paypal-failed {
+  text-align: center;
+}
+.rabbit-integrator-paypal-failed strong {
+  display: block;
+  font-size: 20px;
+  font-weight: 500;
+  color: #ff003c;
+}

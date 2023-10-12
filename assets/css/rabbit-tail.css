@@ -255,7 +255,7 @@
 .rabbit-integrator-admin-form ul li input[type="text"],
 .rabbit-integrator-admin-form ul li select {
   flex: 1;
-  max-width: -webkit-fill-available;
+  max-width: 100%;
 }
 .rabbit-integrator-admin-form {
   flex: 0 0 30%;

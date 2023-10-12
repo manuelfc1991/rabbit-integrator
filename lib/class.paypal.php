@@ -1,15 +1,15 @@
 <?php
-/******************************************************************************* 
- *  11-03-2021 code updated
- *******************************************************************************
-*/
 class paypal 
 {
-	function __construct()
+	function __construct($wpdb)
 	{
+    $settingsResults = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "rabbit_integrator_settings ORDER BY settings_id DESC", ARRAY_A);
+    $server = 'sandbox';
+    if($settingsResults)
+      $server = $settingsResults[0]['server']; 
      $this->css_path = RI_PLUGIN_URL.'/assets/css/';
      $this->image_path = RI_PLUGIN_URL.'/assets/images/';
-	  $this->paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
+	  $this->paypal_url = ($server == 'sandbox') ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
 	  $this->paypal_ipn_url = 'https://ipnpb.paypal.com/cgi-bin/webscr';
 	  $this->last_error = '';
 	  $this->ipn_log_file = '../ipn_results.log';
@@ -34,20 +34,26 @@ class paypal
       foreach ($this->fields as $name => $value) { $html_r.= " <input type=\"hidden\" name=\"$name\" value=\"$value\"/>"; }
       $html_r.= " <input type=\"submit\" value=\"Payment\" class=\"rabbit-integrator-processing-paypal-btn\"> </form>";
       if($page_type == "full")
-	  {
-		//   $html_r1 = " <html> <head><title>Processing Payment...</title></head> <body onLoad=\"document.forms['paypal_form'].submit();\">";
-		  $html_r1 = '<div class="rabbit-integrator-processing-wrap-outer">';
-		  $html_r1.= '<div class="rabbit-integrator-processing-wrap" >'; 
-        $html_r1.= ' <div class="rabbit-integrator-processing-loader"><img src="'.$this->image_path.'loader.svg" width="90" ></div>';
-		  $html_r1.= ' <div class="rabbit-integrator-processing-content">If you are not automatically redirected to paypal within few seconds please click payment button.</div>';
-		  $html_r1.= ' <div class="rabbit-integrator-processing-from">'.$html_r.'</div>';
-		  $html_r1.= '</div></div>';
-        return $html_r1; 
-	  }
-	  else
-	  {
-	  	  return $html_r;
-	  }
+      {
+         // onLoad=\"document.forms['paypal_form'].submit();\">
+         $html_r1 = " <html> <head><title>Processing Payment...</title></head> <body ";
+         $html_r1 = '<div class="rabbit-integrator-processing-wrap-outer">';
+         $html_r1.= '<div class="rabbit-integrator-processing-wrap" >'; 
+         $html_r1.= ' <div class="rabbit-integrator-processing-loader"><img src="'.$this->image_path.'loader.svg" width="90" ></div>';
+         $html_r1.= ' <div class="rabbit-integrator-processing-content">If you are not automatically redirected to paypal within few seconds please click payment button.</div>';
+         $html_r1.= '<script type="text/javascript">
+                     setTimeout(function(){
+                        document.forms[\'paypal_form\'].submit();
+                     }, 3000); // 5000 milliseconds = 5 seconds
+                  </script>'; 
+         $html_r1.= ' <div class="rabbit-integrator-processing-from">'.$html_r.'</div>';
+         $html_r1.= '</div></div> </body> </html>';
+         return $html_r1; 
+      }
+      else
+      {
+         return $html_r;
+      }
    }
 // validate ipn response
    function validate_ipn() {
@@ -155,4 +161,4 @@ class paypal
 	  return $html_r;
    }
 }
-$paypal		 = new paypal();         
+$paypal = new paypal($wpdb);         
