@@ -19,7 +19,7 @@
                 </a>
             </li>
             <li>
-                <a href="http://www.docs.rabbitcreators.com/integrator/">
+                <a href="http://docs.rabbitcreators.com/integrator/">
                     <div class="rabbit-integrator-admin-icon">
                         <img src="<?php echo RI_PLUGIN_URL; ?>assets/images/documentation.png" />
                     </div>
