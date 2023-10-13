@@ -61,6 +61,11 @@ class RabbitIn {
                     wp_register_script( 'rabbit_tail_settings_script', RI_PLUGIN_URL. 'assets/js/settings.js');
                     wp_enqueue_script( 'rabbit_tail_settings_script' );
                 }
+                else if(in_array($_GET['page'], array('rabbit-integrator-transaction-history')))
+                {
+                    wp_register_script( 'rabbit_tail_transaction_script', RI_PLUGIN_URL. 'assets/js/transaction.js');
+                    wp_enqueue_script( 'rabbit_tail_transaction_script' );
+                }
             }
         }
         add_action( 'admin_enqueue_scripts', 'rabbitin_plugin_script_style' );
@@ -71,6 +76,7 @@ class RabbitIn {
         add_submenu_page('rabbit-integrator-edit-template', 'Edit Template', 'Edit Template', 'edit_posts', 'rabbit-integrator-edit-template', 'rabbitIn_edit_template');
         add_submenu_page('rabbit-integrator-template-list', 'Template List', 'Template List', 'edit_posts', 'rabbit-integrator-template-list', 'rabbitIn_template_list');
         add_submenu_page('rabbit-integrator-settings', 'Settings', 'Settings', 'edit_posts', 'rabbit-integrator-settings', 'rabbitIn_settings');
+        add_submenu_page('rabbit-integrator-transaction-history', 'Transaction History', 'Transaction History', 'edit_posts', 'rabbit-integrator-transaction-history', 'rabbitIn_transaction_history');
         function rabbitIn_dashboard(){
             global $wpdb;
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-popup.php';
@@ -175,6 +181,14 @@ class RabbitIn {
             require_once RI_PLUGIN_BASE_DIR. 'pages/rabbit-integrator-settings.php';
             require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-footer.php';
         }
+        function rabbitIn_transaction_history(){
+            global $wpdb;
+            $nav = 'temp-list';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-popup.php';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-header.php';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/rabbit-integrator-transaction-history.php';
+            require_once RI_PLUGIN_BASE_DIR. 'pages/parts/rabbit-integrator-footer.php';
+        }
     }
     public static function rabbitIn_ajaxfunction()
     {
@@ -194,6 +208,12 @@ class RabbitIn {
         function rabbit_integrator_settings() {
             global $wpdb; 
             require_once RI_PLUGIN_BASE_DIR. 'pages/ajax/rabbit-integrator-settings.php';
+            wp_die(); 
+        }
+        add_action( 'wp_ajax_rabbit_integrator_transaction_list', 'rabbit_integrator_transaction_list' );
+        function rabbit_integrator_transaction_list() {
+            global $wpdb; 
+            require_once RI_PLUGIN_BASE_DIR. 'pages/ajax/rabbit-integrator-transaction-history.php';
             wp_die(); 
         }
     }
@@ -285,7 +305,6 @@ class RabbitIn {
                 `template_datetime` datetime NOT NULL DEFAULT current_timestamp(),
                 PRIMARY KEY (`template_id`)
             );");
-
             dbDelta("CREATE TABLE `".$wpdb->prefix. "rabbit_integrator_settings` (
                 `settings_id` int(11) NOT NULL AUTO_INCREMENT,
                 `paypal_id` varchar(500) NOT NULL,
@@ -298,6 +317,44 @@ class RabbitIn {
                 `settings_status` enum('Y','N') NOT NULL DEFAULT 'Y',
                 `settings_datetime` datetime NOT NULL DEFAULT current_timestamp(),
                 PRIMARY KEY (`settings_id`)
+            );");
+            dbDelta("CREATE TABLE `".$wpdb->prefix. "rabbit_integrator_transaction_history` (
+                `transaction_history_id` INT NOT NULL AUTO_INCREMENT,
+                `item_number` VARCHAR(255) NOT NULL,
+                `payer_first_name` VARCHAR(255) NOT NULL,
+                `payer_last_name` VARCHAR(255) NOT NULL,
+                `payment_type` VARCHAR(255) NOT NULL,
+                `txn_id` VARCHAR(255) NOT NULL,
+                `payer_email` VARCHAR(255) NOT NULL,
+                `receiver_email` VARCHAR(255) NOT NULL,
+                `protection_eligibility` VARCHAR(255) NOT NULL,
+                `verify_sign` VARCHAR(255) NOT NULL,
+                `txn_type` VARCHAR(255) NOT NULL,
+                `payment_date` DATETIME NOT NULL,
+                `payer_payment_status` VARCHAR(255) NOT NULL,
+                `business` VARCHAR(255) NOT NULL,
+                `charset` VARCHAR(255) NOT NULL,
+                `ipn_track_id` VARCHAR(255) NOT NULL,
+                `notify_version` VARCHAR(255) NOT NULL,
+                `mc_currency` VARCHAR(255) NOT NULL,
+                `mc_fee` DECIMAL(10,2) NOT NULL,
+                `mc_gross` DECIMAL(10,2) NOT NULL,
+                `payer_status` VARCHAR(255) NOT NULL,
+                `quantity` INT NOT NULL,
+                `payment_fee` DECIMAL(10,2) NOT NULL,
+                `shipping_discount` DECIMAL(10,2) NOT NULL,
+                `receiver_id` VARCHAR(255) NOT NULL,
+                `insurance_amount` DECIMAL(10,2) NOT NULL,
+                `item_name` VARCHAR(255) NOT NULL,
+                `discount` DECIMAL(10,2) NOT NULL,
+                `residence_country` VARCHAR(255) NOT NULL,
+                `test_ipn` VARCHAR(255) NOT NULL,
+                `shipping_method` VARCHAR(255) NOT NULL,
+                `transaction_subject` VARCHAR(255) NOT NULL,
+                `payment_gross` DECIMAL(10,2) NOT NULL,
+                `payer_id` VARCHAR(255) NOT NULL,
+                `transaction_history_datetime` DATETIME DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (`transaction_history_id`)
             );");
             self::rabbitIn_generate_pages();
         } 

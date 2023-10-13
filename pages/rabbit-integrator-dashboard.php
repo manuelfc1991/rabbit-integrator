@@ -19,7 +19,7 @@
                 </a>
             </li>
             <li>
-                <a href="?page=rabbit-integrator-dashboard">
+                <a href="http://www.docs.rabbitcreators.com/integrator/">
                     <div class="rabbit-integrator-admin-icon">
                         <img src="<?php echo RI_PLUGIN_URL; ?>assets/images/documentation.png" />
                     </div>
@@ -27,7 +27,7 @@
                 </a>
             </li>
             <li>
-                <a href="?page=rabbit-integrator-dashboard">
+                <a href="?page=rabbit-integrator-transaction-history">
                     <div class="rabbit-integrator-admin-icon">
                         <img src="<?php echo RI_PLUGIN_URL; ?>assets/images/documentation.png" />
                     </div>

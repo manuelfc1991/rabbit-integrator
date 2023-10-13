@@ -6,7 +6,7 @@ jQuery(document).ready(function (e) {
       serverMethod: "post",
       ajax: {
         url: ajaxurl,
-        data: { action: "rabbit_integrator_template_list" },
+        data: { action: "rabbit_integrator_transaction_list" },
       },
       columnDefs: [
         {
