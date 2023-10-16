@@ -5,8 +5,12 @@
   padding: 0;
   position: relative;
 }
+.rabbit-integrator-admin-wrap {
+  height: 100vh;
+}
 .rabbit-integrator-admin-container {
   width: 99%;
+  height: 100vh;
 }
 .rabbit-integrator-admin-path {
   margin-top: 16px;
@@ -120,13 +124,30 @@
   border-radius: 5px;
   position: relative;
 }
-.rabbit-integrator-popup-success .rabbit-integrator-popup-close-btn {
+.rabbit-integrator-popup-team {
+  align-items: center;
+  justify-content: center;
+  background-color: #d73b60;
+  width: 50%;
+  align-self: flex-start;
+  margin-top: 15%;
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #000;
+  box-shadow: rgb(0, 0, 0) 5px 5px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.rabbit-integrator-popup-success .rabbit-integrator-popup-close-btn,
+.rabbit-integrator-popup-team .rabbit-integrator-popup-close-btn {
   position: absolute;
   top: 0;
   right: 0;
   cursor: pointer;
 }
-.rabbit-integrator-popup-success .rabbit-integrator-popup-close-btn::after {
+.rabbit-integrator-popup-success .rabbit-integrator-popup-close-btn::after,
+.rabbit-integrator-popup-team .rabbit-integrator-popup-close-btn::after {
   content: url(../images/close.png);
   display: inline-block;
 }
@@ -135,6 +156,55 @@
   display: block;
   margin: 5px 0 10px 0;
   font-weight: 500;
+}
+.rabbit-integrator-popup-team strong {
+  color: #fff;
+  font-size: 20px;
+  display: block;
+  margin: 5px 0 10px 0;
+  font-weight: 500;
+}
+.rabbit-integrator-popup-content-developer {
+  flex: 1;
+  margin-top: 5%;
+  padding: 5px 10px 5px 10px;
+  color: #961e3a;
+  font-size: 18px;
+  border: 1px solid #25080f;
+  border-radius: 5px;
+  box-shadow: rgb(0, 0, 0) 5px 5px;
+  cursor: pointer;
+  background-color: #97bee2;
+  font-weight: 600;
+}
+.rabbit-integrator-popup-content-developer img {
+  width: 50px;
+}
+.rabbit-integrator-popup-content-developer span {
+  display: block;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.rabbit-integrator-popup-content-developer-support-btn,
+.rabbit-integrator-popup-content-developer-support-btn:link,
+.rabbit-integrator-popup-content-developer-support-btn:visited,
+.rabbit-integrator-popup-content-developer-support-btn:focus {
+  text-decoration: none;
+  outline: none;
+  opacity: 1;
+  display: inline-block;
+  padding: 5px 10px 5px 10px;
+  color: #961e3a;
+  font-size: 15px;
+  border: 1px solid #25080f;
+  border-radius: 5px;
+  box-shadow: rgb(0, 0, 0) 5px 5px;
+  cursor: pointer;
+  margin-top: 4%;
+  background-color: #97bee2;
+}
+.rabbit-integrator-popup-content-developer-buy-me-btn {
+  margin-top: 0 !important;
 }
 .rabbit-integrator-popup-output {
   display: flex;
@@ -155,6 +225,12 @@
   cursor: pointer;
   scale: 0.9;
 }
+.rabbit-integrator-popup-content-support-content {
+  color: #fff;
+}
+.rabbit-integrator-popup-content-support-content p {
+  font-size: 15px;
+}
 .rabbit-integrator-popup-copied {
   display: block;
   position: fixed;
@@ -167,6 +243,41 @@
   border-radius: 5px;
   border: 1px solid #000;
   box-shadow: rgb(0, 0, 0) 5px 5px;
+}
+.rabbit-integrator-admin-footer {
+  display: block;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+.rabbit-integrator-admin-rabbit-team {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.rabbit-integrator-admin-rabbit-team .rabbit-integrator-admin-rabbit-meet-team,
+.rabbit-integrator-admin-rabbit-team
+  .rabbit-integrator-admin-rabbit-team-support {
+  text-decoration: none;
+  outline: none;
+  opacity: 1;
+  display: inline-block;
+  padding: 5px 10px 5px 10px;
+  color: #961e3a;
+  font-size: 15px;
+  border: 1px solid #25080f;
+  border-radius: 5px;
+  box-shadow: rgb(0, 0, 0) 5px 5px;
+  cursor: pointer;
+}
+.rabbit-integrator-admin-rabbit-team
+  .rabbit-integrator-admin-rabbit-team-support
+  img {
+  width: 15px;
+}
+.rabbit-integrator-popup-content {
+  display: flex;
+  gap: 20px;
 }
 /* dashboard */
 .rabbit-integrator-admin-item-list {
@@ -195,6 +306,11 @@
 .rabbit-integrator-admin-item-list ul li a:link,
 .rabbit-integrator-admin-item-list ul li a:visited,
 .rabbit-integrator-admin-item-list ul li a:focus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   text-decoration: none;
   outline: none;
   color: #d73b60;

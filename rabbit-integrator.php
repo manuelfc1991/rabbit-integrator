@@ -1,13 +1,13 @@
 <?php  
 /* 
 Plugin Name: Rabbit Integrator: PayPal integration plugin
-Plugin URI: https://cubebinary.com/
+Plugin URI: http://www.rabbitcreators.com/
 Description: The Rabbit Integrator is a versatile PayPal integration plugin designed to seamlessly connect PayPal payment processing capabilities to various online platforms and e-commerce websites. With its user-friendly features, it simplifies the process of accepting payments, making it a valuable tool for businesses seeking secure and efficient online transactions.
 Version: 1.0 
 Requires at least: 5.8
 Requires PHP: 5.6.20
 Author: Rabbit Team
-Author URI: https://cubebinary.com/rabbit
+Author URI: http://www.rabbitcreators.com/rabbit-team/
 License: GPLv2 or later
 Text Domain: Rabbit Integrator
 */
