@@ -30,6 +30,7 @@ define('RI_MINIMUM_WP_VERSION', '5.8' );
 define('RI_PLUGIN_BASE_DIR', plugin_dir_path( __FILE__ ));
 
 register_activation_hook( __FILE__, array( 'RabbitIn', 'rabbitIn_activation' ) );
+register_uninstall_hook(__FILE__, array('RabbitIn', 'rabbitIn_uninstall'));
 require_once( RI_PLUGIN_BASE_DIR . 'lib/class.rabbitIn.php' );
 
 add_action( 'init', array( 'RabbitIn', 'rabbitIn_init' ) );

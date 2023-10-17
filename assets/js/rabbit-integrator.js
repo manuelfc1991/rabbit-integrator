@@ -26,6 +26,12 @@ jQuery(document).ready(function ($) {
         var success_popup = jQuery(html).hide();
         jQuery(".rabbit-integrator-popup-wrap").append(success_popup);
         success_popup.show(400);
+        jQuery("html, body").animate(
+          {
+            scrollTop: 0,
+          },
+          800
+        );
       }
     );
 
@@ -45,6 +51,12 @@ jQuery(document).ready(function ($) {
         var success_popup = jQuery(html).hide();
         jQuery(".rabbit-integrator-popup-wrap").append(success_popup);
         success_popup.show(400);
+        jQuery("html, body").animate(
+          {
+            scrollTop: 0,
+          },
+          800
+        );
       }
     );
 

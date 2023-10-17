@@ -71,7 +71,7 @@ class RabbitIn {
         add_action( 'admin_enqueue_scripts', 'rabbitin_plugin_script_style' );
     }
     public static function rabbitIn_pages() {
-        add_menu_page('Dashbord', 'Rabbit Integrator', 'edit_posts', 'rabbit-integrator-dashboard', 'rabbitIn_dashboard', 'dashicons-bank');
+        add_menu_page('Dashbord', 'Rabbit Integrator', 'edit_posts', 'rabbit-integrator-dashboard', 'rabbitIn_dashboard', RI_PLUGIN_URL.'assets/images/paypal-icon.png');
         add_submenu_page('rabbit-integrator-new-template', 'New Template', 'New Template', 'edit_posts', 'rabbit-integrator-new-template', 'rabbitIn_new_template');
         add_submenu_page('rabbit-integrator-edit-template', 'Edit Template', 'Edit Template', 'edit_posts', 'rabbit-integrator-edit-template', 'rabbitIn_edit_template');
         add_submenu_page('rabbit-integrator-template-list', 'Template List', 'Template List', 'edit_posts', 'rabbit-integrator-template-list', 'rabbitIn_template_list');
@@ -330,28 +330,28 @@ class RabbitIn {
                 `protection_eligibility` VARCHAR(255) NOT NULL,
                 `verify_sign` VARCHAR(255) NOT NULL,
                 `txn_type` VARCHAR(255) NOT NULL,
-                `payment_date` DATETIME NOT NULL,
+                `payment_date` VARCHAR(100) NOT NULL,
                 `payer_payment_status` VARCHAR(255) NOT NULL,
                 `business` VARCHAR(255) NOT NULL,
                 `charset` VARCHAR(255) NOT NULL,
                 `ipn_track_id` VARCHAR(255) NOT NULL,
                 `notify_version` VARCHAR(255) NOT NULL,
                 `mc_currency` VARCHAR(255) NOT NULL,
-                `mc_fee` DECIMAL(10,2) NOT NULL,
-                `mc_gross` DECIMAL(10,2) NOT NULL,
+                `mc_fee` VARCHAR(50) NOT NULL,
+                `mc_gross` VARCHAR(50) NOT NULL,
                 `payer_status` VARCHAR(255) NOT NULL,
                 `quantity` INT NOT NULL,
-                `payment_fee` DECIMAL(10,2) NOT NULL,
-                `shipping_discount` DECIMAL(10,2) NOT NULL,
+                `payment_fee` VARCHAR(50) NOT NULL,
+                `shipping_discount` VARCHAR(50) NOT NULL,
                 `receiver_id` VARCHAR(255) NOT NULL,
-                `insurance_amount` DECIMAL(10,2) NOT NULL,
+                `insurance_amount` VARCHAR(50) NOT NULL,
                 `item_name` VARCHAR(255) NOT NULL,
-                `discount` DECIMAL(10,2) NOT NULL,
+                `discount` VARCHAR(50) NOT NULL,
                 `residence_country` VARCHAR(255) NOT NULL,
                 `test_ipn` VARCHAR(255) NOT NULL,
                 `shipping_method` VARCHAR(255) NOT NULL,
                 `transaction_subject` VARCHAR(255) NOT NULL,
-                `payment_gross` DECIMAL(10,2) NOT NULL,
+                `payment_gross` VARCHAR(50) NOT NULL,
                 `payer_id` VARCHAR(255) NOT NULL,
                 `transaction_history_datetime` DATETIME DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY (`transaction_history_id`)
@@ -359,5 +359,19 @@ class RabbitIn {
             self::rabbitIn_generate_pages();
         } 
         catch (Exception $e) {}	
+    }
+
+    public static function rabbitIn_uninstall() {
+        global $wpdb;
+        $table_prefix = $wpdb->prefix;
+        $tables_to_remove = array(
+            $table_prefix . 'rabbit_integrator_template',
+            $table_prefix . 'rabbit_integrator_settings',
+            $table_prefix . 'rabbit_integrator_transaction_history',
+        );
+
+        foreach ($tables_to_remove as $table_name) {
+            $wpdb->query("DROP TABLE IF EXISTS $table_name");
+        }
     }
 }
