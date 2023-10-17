@@ -124,7 +124,8 @@ jQuery(document).ready(function (e) {
       button_color !== "" ||
       button_bg_color !== ""
     ) {
-      jQuery(".rabbit-integrator-paypal-btn span").text(button_txt);
+      if (button_txt !== "")
+        jQuery(".rabbit-integrator-paypal-btn span").text(button_txt);
       jQuery(".rabbit-integrator-paypal-btn").css(
         "font-size",
         button_txt_size + "px"
