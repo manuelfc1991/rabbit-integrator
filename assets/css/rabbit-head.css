@@ -54,6 +54,10 @@
 .rabbit-integrator-processing-content {
   margin-bottom: 10px;
 }
+.rabbit-integrator-paypal-btn-error {
+  font-size: 20px;
+  color: #ff003c;
+}
 /* ipn */
 .rabbit-integrator-paypal-warning {
   color: #ff003c;

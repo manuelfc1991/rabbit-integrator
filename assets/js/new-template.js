@@ -103,7 +103,7 @@ jQuery(document).ready(function (e) {
   );
 
   jQuery(
-    "#price,#button-text,#button-text-size,#button-width,#button-height,#button-text-color,#button-color"
+    "#button-text,#button-text-size,#button-width,#button-height,#button-text-color,#button-color"
   ).on("keyup", function (e) {
     // jQuery(".rabbit-integrator-paypal-btn").removeClass(
     //   "rabbit-integrator-paypal-btn-default"

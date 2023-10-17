@@ -216,6 +216,12 @@ class RabbitIn {
             require_once RI_PLUGIN_BASE_DIR. 'pages/ajax/rabbit-integrator-transaction-history.php';
             wp_die(); 
         }
+        add_action( 'wp_ajax_rabbit_integrator_delete_template', 'rabbit_integrator_delete_template' );
+        function rabbit_integrator_delete_template() {
+            global $wpdb; 
+            require_once RI_PLUGIN_BASE_DIR. 'pages/ajax/rabbit-integrator-template.php';
+            wp_die(); 
+        }
     }
     public static function rabbitIn_generate_pages() {
         $page_content = '<div class="rabbit-integrator-paypal-warning">[rabbit_integrator_ipn] Please do not delete this page, as it contains the vital PayPal IPN shortcode necessary for handling PayPal Instant Payment Notifications. Your cooperation is greatly appreciated, and if you require any assistance, please don\'t hesitate to reach out. Thank you.</div>';

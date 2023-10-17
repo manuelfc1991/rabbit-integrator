@@ -11,7 +11,7 @@ if($action == 'rabbit_integrator_new_template')
     parse_str($template_data, $template_data_array);
     $title  = $template_data_array['title'];
     $price   = floatval($template_data_array['price']);
-    $btn_txt = $template_data_array['button_text'];
+    $btn_txt = !empty($template_data_array['button_text']) ? $template_data_array['button_text'] : 'Continue With';
     $btn_txt_size = $template_data_array['button_text_size'];
     $btn_width = $template_data_array['button_width'];
     $btn_height = $template_data_array['button_height'];
@@ -108,4 +108,13 @@ else if($action == 'rabbit_integrator_template_list')
         "aaData" => $aaData
     );
     echo json_encode($response);
+}
+else if($action == 'rabbit_integrator_delete_template')
+{
+    global $wpdb;
+    $id = $_POST['id'];
+    $table_name = $wpdb->prefix . 'rabbit_integrator_template';
+    $wpdb->query("DELETE FROM $table_name WHERE `template_id`= $id");
+    $html['msg'] = 'Y';
+    echo json_encode($html);
 }

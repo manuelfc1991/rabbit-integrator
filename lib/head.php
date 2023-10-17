@@ -23,9 +23,11 @@ function rabbit_integrator_shortcode( $atts ) {
     $button_height = '';
     $button_text_color = '';
     $button_color = '';
+    $paypal_flag = false;
     $templateResults = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "rabbit_integrator_template WHERE template_id = '$id'", ARRAY_A);
     if($templateResults)
     {
+        $paypal_flag = true;
         $title = $templateResults[0]['template_title'];
         $price = empty($templateResults[0]['template_price']) ? '' : $templateResults[0]['template_price'];    
         $button_text = $templateResults[0]['template_btn_txt']; 
@@ -59,6 +61,10 @@ function rabbit_integrator_shortcode( $atts ) {
         $currency = $settingsResults[0]['currency']; 
         $tax = $settingsResults[0]['tax']; 
     }
+    else 
+    {
+        $paypal_flag = false;
+    }
     if(isset($_POST['rabbit-integrator-submit-btn'])){
         $paypal->add_field('return', $success_url);
         $paypal->add_field('cancel_return', $return_url);
@@ -77,15 +83,16 @@ function rabbit_integrator_shortcode( $atts ) {
     <style>
         .rabbit-integrator-paypal-btn {
         <?php
-            echo empty($button_text_size) ? '' : 'font-size:'.$button_text_size.'px;';
-            echo empty($button_width) ? '' : 'width:'.$button_width.'px;';
-            echo empty($button_height) ? '' : 'height:'.$button_height.'px;';
-            echo empty($button_text_color) ? '' : 'color:'.$button_text_color.';';
-            echo empty($button_color) ? '' : 'background-color:'.$button_color.';';
+            echo empty($button_text_size) ? '' : 'font-size:'.$button_text_size.'px !important;';
+            echo empty($button_width) ? '' : 'width:'.$button_width.'px !important;';
+            echo empty($button_height) ? '' : 'height:'.$button_height.'px !important;';
+            echo empty($button_text_color) ? '' : 'color:'.$button_text_color.' !important;';
+            echo empty($button_color) ? '' : 'background-color:'.$button_color.' !important;';
         ?>
         }
     </style>
     <div class="rabbit-integrator-paypal-btn-wrap">
+        <?php if($paypal_flag) { ?>
         <form method="post" id="rabbit-integrator-submit-form">
             <button class="rabbit-integrator-paypal-btn" type="submit" name="rabbit-integrator-submit-btn"><span><?php echo $button_text; ?></span><img src="<?php echo RI_PLUGIN_URL; ?>assets/images/paypal.png"></button>
         </form>
@@ -97,7 +104,12 @@ function rabbit_integrator_shortcode( $atts ) {
         </div>
         <?php 
             }
+        } else {
         ?>
+        <div class="rabbit-integrator-paypal-btn-error">
+            The Rabbit Integrator shortcode is encountering an error and needs an extra parameter or proper configuration within your plugin to function correctly.
+        </div>
+        <?php } ?>
     </div>
     <?php
     return ob_get_clean(); // Return the buffered content

@@ -1,5 +1,8 @@
 jQuery(document).ready(function (e) {
-  jQuery("#rabbit-integrator-admin-template-list")
+  var rabbit_integrator_url = jQuery(".rabbit-integrator-admin-logo a").attr(
+    "data-assets-url"
+  );
+  var table = jQuery("#rabbit-integrator-admin-template-list")
     .DataTable({
       processing: true,
       serverSide: true,
@@ -41,7 +44,7 @@ jQuery(document).ready(function (e) {
               row["template_id"] +
               '" class="rabbit-integrator-button rabbit-integrator-button-duplicate" >Duplicate</a>';
             html +=
-              ' <a href="?page=rabbit-integrator-new-template&cpy_id=' +
+              ' <a href="' +
               row["template_id"] +
               '" class="rabbit-integrator-button rabbit-integrator-button-delete" >Delete</a>';
             return html;
@@ -88,4 +91,76 @@ jQuery(document).ready(function (e) {
       }, 500);
     }, 200);
   });
+
+  jQuery(document).on(
+    "click",
+    ".rabbit-integrator-button-delete",
+    function (e) {
+      e.preventDefault();
+      var id = jQuery(this).attr("href");
+      jQuery(".rabbit-integrator-popup-wrap").addClass(
+        "rabbit-integrator-popup-active"
+      );
+      html =
+        "<div class='rabbit-integrator-popup-success rabbit-integrator-popup-delete'><div class='rabbit-integrator-popup-close-btn'></div><div class='rabbit-integrator-popup-content'><img src='" +
+        rabbit_integrator_url +
+        "assets/images/delete.png' /><strong>" +
+        "</strong><div class='rabbit-integrator-popup-output'>Are you sure. Do you want to delete?</div><button class='rabbit-integrator-popup-delete-btn' data-id='" +
+        id +
+        "'>Confirm</button></div></div>";
+      var success_popup = jQuery(html).hide();
+      jQuery(".rabbit-integrator-popup-wrap").append(success_popup);
+      success_popup.show(400);
+    }
+  );
+
+  jQuery(document).on(
+    "click",
+    ".rabbit-integrator-popup-close-btn",
+    function (e) {
+      e.preventDefault();
+      jQuery(".rabbit-integrator-popup-success").hide(200);
+      setTimeout(function () {
+        jQuery(".rabbit-integrator-popup-success").remove();
+        jQuery(".rabbit-integrator-popup-wrap").removeClass(
+          "rabbit-integrator-popup-active"
+        );
+      }, 500);
+    }
+  );
+
+  jQuery(document).on(
+    "click",
+    ".rabbit-integrator-popup-delete-btn",
+    function (e) {
+      showDelete();
+      jQuery.ajax({
+        url: ajaxurl,
+        data: {
+          id: jQuery(".rabbit-integrator-popup-delete-btn").attr("data-id"),
+          action: "rabbit_integrator_delete_template",
+        },
+        type: "POST",
+        dataType: "json",
+        success: function (json) {},
+        error: function (err) {},
+      });
+    }
+  );
+
+  function showDelete() {
+    html = "<div class='rabbit-integrator-popup-copied'>Deleted</div>";
+    jQuery(".rabbit-integrator-popup-wrap").append(html);
+    table.ajax.reload();
+    setTimeout(function () {
+      jQuery(".rabbit-integrator-popup-copied").hide(400);
+      jQuery(".rabbit-integrator-popup-success").hide(200);
+      setTimeout(function () {
+        jQuery(".rabbit-integrator-popup-copied").remove();
+        jQuery(".rabbit-integrator-popup-wrap").removeClass(
+          "rabbit-integrator-popup-active"
+        );
+      }, 500);
+    }, 200);
+  }
 });

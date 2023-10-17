@@ -124,6 +124,19 @@
   border-radius: 5px;
   position: relative;
 }
+.rabbit-integrator-popup-delete {
+  background-color: #db1212;
+}
+.rabbit-integrator-popup-delete-btn {
+  padding: 5px 10px 5px 10px;
+  color: #961e3a;
+  font-size: 15px;
+  border: 1px solid #25080f;
+  border-radius: 5px;
+  box-shadow: rgb(0, 0, 0) 5px 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
 .rabbit-integrator-popup-team {
   align-items: center;
   justify-content: center;
