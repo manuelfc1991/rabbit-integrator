@@ -13,7 +13,7 @@ Text Domain: Rabbit Integrator
 */
 
 /*
-Copyright 2023 Rabbit Creator.
+Copyright 2023 Rabbit Creator. 
 */
 
 // Make sure we don't expose any info if called directly
